@@ -1,6 +1,6 @@
 {
   "name": "astro-cache-embed",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "main": "index.ts",
   "type": "module",
   "repository": {
@@ -17,8 +17,5 @@
     "mastodon-audio-player-web-component": "^1.0.0",
     "mime-types": "^2.1.35",
     "sequelize": "^6.35.1"
-  },
-  "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
   }
 }
