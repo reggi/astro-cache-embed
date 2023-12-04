@@ -1,0 +1,24 @@
+---
+import type { CacheFetchOptions } from '../controllers/cache_fetch'
+import Summary from './Summary.astro'
+import SummaryLarge from './SummaryLarge.astro'
+type Props = CacheFetchOptions & {
+  image: string,
+  href: string,
+  title: string
+  description: string
+  class?: string
+  summary?: string
+}
+const { image, href, title, description, summary, class: className, ...rest } = Astro.props
+const isSummary = summary === 'summary'
+---
+
+<div class={`${className} astro-cache-embed card rounded-xl border border-slate-500 overflow-hidden`}>
+  { isSummary ? (
+    <Summary class="hidden md:block" image={image} href={href} title={title} description={description} {...rest}/>
+    <SummaryLarge class="block md:hidden" image={image} href={href} title={title} description={description} {...rest}/>
+  ) : (
+    <SummaryLarge image={image} href={href} title={title} description={description} {...rest}/>
+  )}
+</div>

@@ -1,0 +1,14 @@
+---
+type Props = {
+  src: string;
+  poster?: string;
+};
+
+const props = Astro.props
+---
+
+<script>
+  import "../web-components/audio-player";
+</script>
+
+<audio-player src={props.src} poster={props.poster}/>

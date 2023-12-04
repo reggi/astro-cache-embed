@@ -1,0 +1,17 @@
+---
+import { cacheYoutube } from '../controllers/cache_youtube'
+import Youtube from './Youtube.astro'
+
+type Props = {
+  href: string,
+  title?: string,
+  dontCache?: boolean
+  clearCache?: boolean
+}
+
+const { href, title, dontCache, clearCache } = Astro.props
+
+const { embed, image, title: t } = await cacheYoutube(href, { title, dontCache, clearCache })
+---
+
+<Youtube embed={embed} image={image} title={t}/>

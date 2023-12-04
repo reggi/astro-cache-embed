@@ -1,0 +1,11 @@
+---
+// Props definition
+interface Props {
+  id: string;
+
+}
+const { id } = { ...Astro.props};
+---
+<div data-modal-for={id} class="cursor-pointer inline">
+  <slot/>
+</div>

@@ -1,0 +1,19 @@
+{
+  "name": "astro-cache-embed",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "astro-gist": "^1.0.0",
+    "astro-nitter": "^1.0.0",
+    "astro-youtube": "^1.0.0",
+    "mime-types": "^2.1.35",
+    "umzug": "^3.4.0"
+  },
+  "description": ""
+}

@@ -1,0 +1,15 @@
+---
+interface Props {
+  src: string;
+  poster: string;
+  description?: string;
+}
+
+const { src, poster } = Astro.props;
+---
+<video
+  class="w-full h-auto rounded-xl"
+  controls
+  poster={poster}
+  src={src}
+/>

@@ -1,0 +1,22 @@
+---
+import { Code } from 'astro:components';
+import { cacheMastodonStatus, cacheMastodonStatusApi } from '../controllers/cache_mastodon_status'
+import MastodonStatus from './MastodonStatus.astro';;
+import type { CacheFetchOptions } from '../controllers/cache_fetch';
+
+type Props = CacheFetchOptions & {
+  href: string
+  debug?: boolean
+}
+
+const props = Astro.props
+const { href, debug } = props
+
+const debugValue = debug ? await cacheMastodonStatusApi(href, props) : null
+const status = debug ? null : await cacheMastodonStatus(href, props)
+
+---
+
+{ debugValue 
+  ? <Code code={JSON.stringify(debugValue, null, 2)} lang="json" />
+  : status && <MastodonStatus {...status}/> }

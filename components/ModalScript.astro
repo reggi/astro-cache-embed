@@ -1,0 +1,31 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleModal = (event: MouseEvent) => {
+      const button = event.currentTarget as HTMLElement;
+      const modalId = button.getAttribute("data-modal-for");
+      const modal = document.querySelector(`[data-modal-id="${modalId}"]`) as HTMLElement;
+
+      if (modal) {
+        modal.classList.toggle("hidden");
+      }
+    };
+
+    const closeModal = (event: MouseEvent) => {
+      const modal = event.currentTarget as HTMLElement;
+      if (event.target === modal) {
+        modal.classList.add("hidden");
+      }
+    };
+
+    const modalToggles = document.querySelectorAll("[data-modal-for]") as NodeListOf<HTMLElement>;
+    const modals = document.querySelectorAll("[data-modal-id]") as NodeListOf<HTMLElement>;
+
+    modalToggles.forEach((button) => {
+      button.addEventListener("click", toggleModal);
+    });
+
+    modals.forEach((modal) => {
+      modal.addEventListener("click", closeModal);
+    });
+  });
+</script>
