@@ -1,7 +1,7 @@
 {
   "name": "astro-cache-embed",
   "version": "2.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^5.3.0",
     "mastodon-audio-player-web-component": "^1.0.0",
-    "mime-types": "^2.1.35"
+    "mime-types": "^2.1.35",
+    "sequelize": "^6.35.1"
   }
 }
