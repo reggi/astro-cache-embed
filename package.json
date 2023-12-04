@@ -1,6 +1,6 @@
 {
   "name": "astro-cache-embed",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "main": "index.ts",
   "type": "module",
   "repository": {
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.3.0",
+    "cheerio": "^1.0.0-rc.12",
     "mastodon-audio-player-web-component": "^1.0.0",
     "mime-types": "^2.1.35",
     "sequelize": "^6.35.1"
