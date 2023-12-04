@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "main": "index.ts",
   "type": "module",
+  "repository": "https://github.com/reggi/astro-cache-embed",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
