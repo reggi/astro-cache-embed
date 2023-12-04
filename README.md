@@ -6,7 +6,7 @@ I wrote a [dev.to](https://dev.to) article downloader a while back, [reggi/fetch
 {% embed https://twitter.com/thomasreggi/status/1704311117273550892 %}
 ```
 
-Somehting using `mdx` like :
+Something using `mdx` like :
 
 ```mdx
 <Embed href="https://twitter.com/thomasreggi/status/1704311117273550892" />
