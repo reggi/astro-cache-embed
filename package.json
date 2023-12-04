@@ -3,7 +3,10 @@
   "version": "2.0.0",
   "main": "index.ts",
   "type": "module",
-  "repository": "https://github.com/reggi/astro-cache-embed",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reggi/astro-cache-embed.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,5 +17,8 @@
     "mastodon-audio-player-web-component": "^1.0.0",
     "mime-types": "^2.1.35",
     "sequelize": "^6.35.1"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
   }
 }
