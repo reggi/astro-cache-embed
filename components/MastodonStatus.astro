@@ -14,10 +14,10 @@ const props = Astro.props
 <MicroBlog {...props}>
   <a href="https://joinmastodon.org/" slot="logo"><MastodonLogo/></a>
   <div slot="supplemental">
-    {props.images && Boolean(props.images?.length) && <ImageGrid media={props.images}/>}
-    {props.video && <Video src={props.video.src} poster={props.video.poster}/>}
-    {props.poll && <Poll {...props.poll}/>}
-    {props.audio && <AudioPlayer {...props.audio}/>}
+    {props.images && Boolean(props.images?.length) && <ImageGrid media={props.images} class="mb-5"/>}
+    {props.video && <Video src={props.video.src} poster={props.video.poster} class="mb-5"/>}
+    {props.poll && <Poll {...props.poll} class="mb-5"/>}
+    {props.audio && <AudioPlayer {...props.audio} class="mb-5"/>}
   </div>
   <div slot="metadata">
     · 

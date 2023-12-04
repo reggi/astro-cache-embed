@@ -3,10 +3,10 @@
 
 import type { Status } from '../types/mastodon';
 
-type Props = Status['poll']
+type Props = Status['poll'] & { class?: string }
 
 // Receive poll data as a prop
-const poll = Astro.props
+const {class: className, ...poll} = Astro.props
 
 const calculatePercentage = (votes: number, totalVotes: number) => {
   return totalVotes > 0 ? (votes / totalVotes * 100) : 0;
@@ -35,7 +35,7 @@ function timeLeft(untilDate: string): string {
 }
 
 ---
-<div>
+<div class={className}>
   <ul class="list-none list-inside m-0 p-0">
     {poll.options.map((option) => {
       const percent = Math.round(calculatePercentage(option.votes_count || 0, poll.votes_count))
@@ -43,7 +43,7 @@ function timeLeft(untilDate: string): string {
         <li class="mb-5">
           <span class="mr-3">{percent}%</span>
           <span>{option.title}</span>
-          <span class="bg-white block h-2 rounded" style={{width: `${percent}%`}}></span>
+          <span class="bg-black block h-2 rounded" style={{width: `${percent}%`}}></span>
         </li>
       )
     })}

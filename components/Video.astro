@@ -3,13 +3,16 @@ interface Props {
   src: string;
   poster: string;
   description?: string;
+  class?: string
 }
 
-const { src, poster } = Astro.props;
+const { src, poster, class: className } = Astro.props;
 ---
-<video
-  class="w-full h-auto rounded-xl"
-  controls
-  poster={poster}
-  src={src}
-/>
+<div class={className}>
+  <video
+    class={`w-full h-auto rounded-xl`}
+    controls
+    poster={poster}
+    src={src}
+  />
+</div>

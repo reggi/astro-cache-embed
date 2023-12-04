@@ -17,7 +17,7 @@ export type VideoMedia = {
 
 export type AudioMedia = {
   src: string,
-  poster: string,
+  poster?: string,
 }
 
 export type Props = {

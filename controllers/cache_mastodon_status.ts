@@ -100,9 +100,20 @@ export type MastodonStatusProps = MicroBlogProps & {
 export async function cacheMastodonStatus (href: string, options: CacheFetchOptions = {}): Promise<MastodonStatusProps | null> {
   const api = await cacheMastodonStatusApi(href, options)
   if (!api) return null
-  const avatar = (await cacheFetch(api.body.account.avatar, options)).src
+  const avatar = (await cacheFetch(api.body.account.avatar, options))?.src
   if (!api.body.url) return null
   const audio = resolveAudioAttachments(api.body)[0]
+  const video = resolveVideoAttachments(api.body)[0]
+  const image = resolveImageAttachments(api.body)
+  const social = api.body.card ? {
+    title: api.body.card.title,
+    description: api.body.card.description,
+    ogImage: api.body.card.image || undefined,
+    href: api.body.card.url,
+    twitterCard: api.body.card.width < 500 ? 'summary' : 'summary_large_image'
+  } : undefined
+
+  const hasAttachment = audio || video || image.length > 0 || api.body.poll
   return {
     url: api.body.url,
     date: formatDate(api.body.created_at),
@@ -110,14 +121,9 @@ export async function cacheMastodonStatus (href: string, options: CacheFetchOpti
     html: MastodonStatusHtmlParser.init(api.body.content),
     profileImage: avatar,
     profileUrl: api.body.account.url,
-    social: api.body.card ? {
-      title: api.body.card.title,
-      description: api.body.card.description,
-      ogImage: api.body.card.image || undefined,
-      href: api.body.card.url
-    } : undefined,
+    social: hasAttachment ? undefined : social,
     images: resolveImageAttachments(api.body),
-    video: resolveVideoAttachments(api.body)[0],
+    video: video,
     audio: audio ? {
       ...audio,
       poster: avatar,

@@ -2,6 +2,7 @@
 type Props = {
   src: string;
   poster?: string;
+  class?: string;
 };
 
 const props = Astro.props
@@ -11,4 +12,6 @@ const props = Astro.props
   import "mastodon-audio-player-web-component";
 </script>
 
-<audio-player src={props.src} poster={props.poster}/>
+<div class={props.class}>
+  <audio-player src={props.src} poster={props.poster}/>
+</div>
