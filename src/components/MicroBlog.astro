@@ -1,0 +1,111 @@
+---
+import Embed from "./Embed.astro";
+import Card from "./Card.astro";
+import type { SocialData } from "../cache_fetch/deps/social_data";
+import type { Status } from "../plugins/mastodon/types";
+
+export type ImageMedia = {
+  id: string,
+  src: string,
+  alt: string,
+  objectPosition: string
+}[]
+
+export type VideoMedia = {
+  id: string,
+  src: string,
+  alt: string,
+  poster: string,
+}
+
+export type AudioMedia = {
+  src: string,
+  poster?: string,
+}
+
+export type Props = {
+  date: string;
+  displayName: string;
+  html: string;
+  profileImage?: any;
+  profileUrl: string;
+  social?: Partial<SocialData>;
+  url: string;
+  username: string
+  images?: ImageMedia
+  video?: VideoMedia
+  poll?: Status['poll']
+  audio?: AudioMedia,
+  class?: string
+};
+
+export type MicroBlogProps = Props
+
+const {
+  date,
+  displayName,
+  html,
+  profileImage,
+  profileUrl,
+  url,
+  username,
+  social,
+  class: className,
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    `astro-cache-embed micro-blog`,
+    `relative rounded-lg break-words p-4 border border-slate-500`,
+    className,
+  ]}
+>
+  <a
+    href={profileUrl}
+    target="_blank"
+    class="no-underline !text-inherit flex mb-5 font-bold"
+  >
+    <div class="flex space-x-4">
+      {
+        profileImage && (
+          <div>
+            <Embed
+              class="profile-image w-14 h-14 rounded-full"
+              src={profileImage}
+              alt="User Image"
+            />
+          </div>
+        )
+      }
+      <div>
+        <div class="display-name text-md">
+          {displayName}
+        </div>
+        <div class="username">{username}</div>
+      </div>
+    </div>
+  </a>
+  <div>
+    <div class="mb-5" set:html={html} />
+    <slot name="supplemental" />
+    {
+      social && (
+        <Card
+          class="bg-slate-300 rounded-lg pt-2 px-2 mb-2"
+          url={url}
+          {...social}
+        />
+      )
+    }
+  </div>
+  <div class="flex">
+    <div class="mr-2">
+      <a href={url} class="no-underline" target="_blank">{date}</a>
+    </div>
+    <slot name="metadata" />
+  </div>
+  <div class="absolute top-5 right-5">
+    <slot name="logo" />
+  </div>
+</div>

@@ -1,0 +1,26 @@
+---
+import { resolveClassName, type InputClass } from '../astro';
+import type { Payload } from '../cache_fetch';
+import AudioPlayer from './AudioPlayer.astro';
+import Card, { type CardProps, type Props as FullCardProps } from './Card.astro';
+import Video from './Video.astro';
+export type CoreProps = CardProps & InputClass & { alt?: string, asImage?: boolean, withImage?: string }
+export type Props = CoreProps & { payload: Payload, Component: (_props: any) => any }
+const { payload, Component, ...props }: Props = Astro.props;
+const { className } = resolveClassName(props);
+const isImage = (payload.contentType.startsWith('image') && payload.src) || props.asImage;
+const isAudio = (payload.contentType.startsWith('audio') && payload.src)
+const isVideo = (payload.contentType.startsWith('video') && payload.src)
+const isMedia = isImage || isAudio || isVideo;
+const cardProps: FullCardProps | undefined = !(payload?.socialData?.url && payload?.socialData) ? undefined : {
+  ...props,
+  ...payload?.socialData,
+  classList:["rounded-xl overflow-hidden w-full", className],
+  url: payload?.socialData?.url,
+}
+---
+{ isImage && <img class:list={['astro-cache-embed', className]} src={payload.src} alt={props.alt} />}
+{ isAudio && payload.src && <AudioPlayer class={className} src={payload.src} poster={payload?.socialData?.image} />}
+{ isVideo  && payload.src && <Video class={className} src={payload.src} poster={payload?.socialData?.image} />}
+{ !isMedia && Component && <Component class={className} {...payload?.custom?.data} />}
+{ !isMedia && !Component && cardProps && <Card {...cardProps}/>}

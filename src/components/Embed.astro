@@ -1,0 +1,19 @@
+---
+import Shell, { type CoreProps as ShellProps} from './Shell.astro';
+import * as allPlugins from '../plugins/all';
+import { fetcher, type FetcherOptions, type PluginModules }  from '../main';
+
+const { twitter, ...restPlugins} = allPlugins satisfies PluginModules;
+type Props = FetcherOptions & ShellProps
+const props = Astro.props
+const downloadLocation = 'downloads'
+const plugins = {...restPlugins, twitter: twitter.custom({ proxyUrl: 'nitter.net'})}
+const {payload, Component} = await fetcher({ ...props, downloadLocation, plugins });
+
+if (props.withImage) {
+  const { payload: imgPayload } = await fetcher({ ...props, downloadLocation, plugins, url: props.withImage })
+  if (!payload.socialData) payload.socialData = {}
+  if (imgPayload.src) payload.socialData.image = imgPayload.src
+}
+---
+<Shell payload={payload} Component={Component} {...Astro.props}></Shell>

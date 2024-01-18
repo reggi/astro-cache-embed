@@ -1,0 +1,17 @@
+---
+export type Props = {
+  src: string;
+  poster?: string;
+  class?: string;
+};
+
+const { src, poster, class: className } = Astro.props;
+---
+
+<script>
+  import "mastodon-audio-player-web-component";
+</script>
+
+<div class:list={['astro-cache-embed', className]}>
+  <audio-player src={src} poster={poster}></audio-player>
+</div>

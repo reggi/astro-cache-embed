@@ -1,15 +1,10 @@
 {
   "name": "astro-cache-embed",
-  "version": "6.1.0",
-  "main": "index.ts",
+  "version": "7.0.0",
+  "description": "",
+  "main": "src/index.ts",
   "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reggi/astro-cache-embed.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,7 +12,18 @@
     "cheerio": "^1.0.0-rc.12",
     "mastodon-audio-player-web-component": "^2.0.0",
     "mime-types": "^2.1.35",
-    "sequelize": "^6.35.1",
-    "sqlite3": "^5.1.6"
+    "puppeteer": "^21.7.0",
+    "sequelize": "^6.35.2",
+    "sqlite3": "^5.1.7",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "@types/mime-types": "^2.1.4",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-astro": "^0.31.3",
+    "eslint-plugin-typescript-sort-keys": "^3.1.0",
+    "typescript": "^5.3.3"
   }
 }

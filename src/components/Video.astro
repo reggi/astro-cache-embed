@@ -1,0 +1,19 @@
+---
+interface Props {
+  src: string;
+  poster?: string;
+  description?: string;
+  class?: string
+}
+
+const { src, poster, class: className } = Astro.props;
+---
+<div class:list={['astro-cache-embed', className]}>
+  <video
+    {...Astro.props}
+    class={`w-full h-auto rounded-xl`}
+    controls
+    poster={poster}
+    src={src}
+  />
+</div>

@@ -1,0 +1,16 @@
+---
+import MicroBlog, { type Props as MicroBlogProps } from "../../components/MicroBlog.astro";
+import TwitterLogo from "./TwitterLogo.astro";
+type Props = MicroBlogProps & {
+  fill?: string
+  source?: string
+}
+const { fill, source, class: className } = { fill: "#4A99E9", ...Astro.props };
+---
+<MicroBlog {...Astro.props} class={`${className}`}>
+  {source ? (
+    <a href={source} slot="logo"><TwitterLogo fill={fill}/></a>
+  ) : (
+    <TwitterLogo fill={fill}/>
+  )}
+</MicroBlog>

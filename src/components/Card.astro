@@ -1,0 +1,125 @@
+---
+import type { SocialData } from "../cache_fetch/deps/social_data";
+import { resolveProps, textColorBasedOnBackgroundColor, bgColorHexFromClasses, type CoreProps } from "../astro";
+import type { CacheOptions } from "../cache_fetch/deps/cache";
+import Embed from "./Embed.astro";
+
+export type CardProps = {
+  large?: boolean;
+  noImage?: boolean;
+  noTheme?: boolean;
+  small?: boolean;
+  useIcon?: boolean;
+}
+
+export type CustomProps = CacheOptions & CardProps & CoreProps;
+
+export type Props = CustomProps & Omit<Partial<SocialData>, "url">;
+
+const props = resolveProps(Astro.props);
+const cacheFetchOptions = { 
+  clear: props.clear,
+  prevent: props.prevent,
+};
+
+let {
+  className,
+  description,
+  domain,
+  icon,
+  image,
+  large,
+  noImage,
+  noTheme,
+  size,
+  small,
+  title,
+  url,
+  useIcon,
+} = props;
+
+let optionalSize: string | undefined = size
+
+const themeColor =
+  bgColorHexFromClasses(className) || props.themeColor || "#fff";
+
+const bgColor =
+  noTheme !== true && themeColor && `background-color: ${themeColor}`;
+
+const textColor =
+  noTheme !== true &&
+  themeColor &&
+  `color: ${textColorBasedOnBackgroundColor(themeColor)}`;
+
+image = useIcon ? icon : image || icon;
+
+if (small) optionalSize = "small";
+if (large) optionalSize = "large";
+
+const style = [bgColor, textColor].filter(Boolean).join(" ;");
+
+const useSimple = !image && (!title || title === domain) && !description;
+if (useSimple) {
+  title = url;
+  optionalSize = undefined;
+}
+
+if (noImage) {
+  optionalSize = undefined;
+}
+---
+<a
+  href={url}
+  target="_blank"
+  class:list={["astro-cache-embed", "inline-block", className]}
+  style={style}
+>
+  {(() => {
+    const small = (
+      <div class="grid grid-cols-4">
+        {image && (
+          <div class="col-span-1">
+            <Embed
+              asImage
+              src={image}
+              class="w-full h-full object-cover"
+              {...cacheFetchOptions}
+            />
+          </div>
+        )}
+        <div class="col-span-3 p-2.5">
+          <p class="text-sm font-bold">{domain}</p>
+          {title && <p class="text-md">{title.substring(0, 100)}</p>}
+          {description && (
+            <p class={title ? "text-sm" : "text-md"}>
+              {description.substring(0, 200)}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+
+    const withoutImage = (
+      <div class="p-2.5 flex flex-col">
+        <p class="text-sm font-bold">{domain}</p>
+        {title && <p class="text-md">{title}</p>}
+        {description && (
+          <p class={title ? "text-sm" : "text-md"}>{description}</p>
+        )}
+      </div>
+    );
+
+    const large = (
+      <Fragment>
+        {image && (
+          <Embed asImage src={image} class="w-full" {...cacheFetchOptions} />
+        )}
+        {withoutImage}
+      </Fragment>
+    );
+    
+    if (optionalSize === 'small') return small;
+    if (optionalSize === 'large') return large;
+    return withoutImage;
+  })()}
+</a>

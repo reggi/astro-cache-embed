@@ -1,9 +1,0 @@
----
-import { cacheGist } from '../controllers/cache_gist'
-import type { CacheFetchOptions } from '../controllers/cache_fetch'
-type Props = CacheFetchOptions & { href: string }
-const props = Astro.props
-const data = await cacheGist(props.href, props)
----
-{data && data.stylesheet && <link rel="stylesheet" href={data.stylesheet} />}
-{data && data.html && <div set:html={data.html} />}

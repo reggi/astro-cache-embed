@@ -1,0 +1,9 @@
+---
+import { type GistData } from './plugin';
+type Props = GistData['data']
+const { stylesheet, html } = Astro.props;
+---
+<div class="astro-cache-embed">
+  {stylesheet && <link rel="stylesheet" href={stylesheet} />}
+  {html && <div set:html={html} />}
+</div>
